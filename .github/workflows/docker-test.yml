@@ -37,14 +37,19 @@ jobs:
       - name: Connect and fetch data from MySQL
         run: |
           pwd
+          echo "\n"
           ls
+          echo "\n"
           cd main
           ls
+          echo "\n"
           cd ..
           cd git-actions-test
           ls
+          echo "\n"
           cd database
           ls -a
+          echo "\n"
           mysql -h127.0.0.1 -uroot -prootpassword -e "source /home/runner/work/git-actions-test/main/git-actions-test/database/init.sql; SHOW DATABASES; USE test; SELECT * FROM user;"
 
 #          sleep 30 # Give some time for MySQL container to initialize completely
