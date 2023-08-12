@@ -1,9 +1,6 @@
 name: Run MySQL and Execute SQL
 
 on:
-  push:
-    paths:
-      - 'init.sql'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +20,7 @@ jobs:
           --health-timeout=5s
           --health-retries=10
         volumes:
-          - ./test.sql:/docker-entrypoint-initdb.d/test.sql
+          - ./git-actions-test/database/init.sql:/docker-entrypoint-initdb.d/test.sql
 
     steps:
       - name: Checkout code
