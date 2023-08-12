@@ -43,7 +43,6 @@ jobs:
           cd main
           ls
           echo "\n"
-          cd ..
           cd git-actions-test
           ls
           echo "\n"
