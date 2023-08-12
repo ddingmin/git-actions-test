@@ -36,9 +36,9 @@ jobs:
 
       - name: Connect and fetch data from MySQL
         run: |
-#          sleep 30 # Give some time for MySQL container to initialize completely
           ls
           pwd
           mysql -h127.0.0.1 -uroot -prootpassword -e "source /docker-entrypoint-initdb.d/init.sql; SHOW DATABASES; USE test; SELECT * FROM user;"
 
+#          sleep 30 # Give some time for MySQL container to initialize completely
 #          mysql -h127.0.0.1 -uroot -prootpassword -e "USE test; SELECT * FROM user;"
