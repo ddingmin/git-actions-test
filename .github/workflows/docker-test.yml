@@ -1,16 +1,13 @@
-name: CI Workflow
+name: Run MySQL and Execute SQL
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    paths:
+      - 'init.sql'
+  workflow_dispatch:
 
 jobs:
-  build:
+  setup-mysql:
     runs-on: ubuntu-latest
 
     services:
@@ -18,9 +15,6 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
-          MYSQL_DATABASE: testdb
-          MYSQL_USER: user
-          MYSQL_PASSWORD: userpassword
         ports:
           - 3306:3306
         options: >-
@@ -29,15 +23,16 @@ jobs:
           --health-timeout=5s
           --health-retries=10
         volumes:
-          - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+          - ./test.sql:/docker-entrypoint-initdb.d/test.sql
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run some tests or operations
+      - name: Install MySQL client
+        run: sudo apt-get install -y mysql-client
+
+      - name: Connect and fetch data from MySQL
         run: |
-          sudo mysql;
-          use TEST;
-          SELECT * FROM user;
-          exit;
+          sleep 30 # Give some time for MySQL container to initialize completely
+          mysql -h127.0.0.1 -uroot -prootpassword -e "USE test; SELECT * FROM user;"
