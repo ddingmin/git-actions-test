@@ -20,7 +20,8 @@ jobs:
           --health-timeout=5s
           --health-retries=10
         volumes:
-          - ./git-actions-test/database/init.sql:/docker-entrypoint-initdb.d//git-actions-test/database/init.sql
+          - ./git-actions-test/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
 
     steps:
       - name: Checkout code
@@ -34,6 +35,6 @@ jobs:
       - name: Connect and fetch data from MySQL
         run: |
           sleep 30 # Give some time for MySQL container to initialize completely
-          mysql -h127.0.0.1 -uroot -prootpassword -e "SHOW DATABASES; SHOW TABLES;"
+          mysql -h127.0.0.1 -uroot -prootpassword -e "SHOW DATABASES; USE test; SELECT * FROM user;"
 
 #          mysql -h127.0.0.1 -uroot -prootpassword -e "USE test; SELECT * FROM user;"
