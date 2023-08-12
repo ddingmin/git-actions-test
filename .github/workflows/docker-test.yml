@@ -40,6 +40,8 @@ jobs:
           cd git-actions-test
           cd database
           ls
+          cd /home/runner/work/git-actions-test/main
+          ls
           mysql -h127.0.0.1 -uroot -prootpassword -e "source init.sql; SHOW DATABASES; USE test; SELECT * FROM user;"
 
 #          sleep 30 # Give some time for MySQL container to initialize completely
