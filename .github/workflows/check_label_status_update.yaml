@@ -2,9 +2,6 @@ name: Check if Any Label is Attached to Pull Request
 
 on:
   pull_request:
-    types:
-      - synchronize  # PR에 변경 사항이 있는 경우 실행
-      - opened
 
 jobs:
   check-label:
@@ -22,7 +19,7 @@ jobs:
         labels=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/issues/${PR_NUMBER}/labels" | jq -r '.[].name')
 
         if [ -n "$labels" ]; then
-          echo "라벨이 존재합니다."
+          echo " '$labels' 라벨이 존재합니다."
         else
           echo "라벨이 존재하지 않습니다."
           exit 1
