@@ -1,0 +1,16 @@
+name: Test Directory
+
+on:
+  workflow_dispatch:  # 수동으로 Workflow를 실행
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: where is me
+        run: ls 
+        
